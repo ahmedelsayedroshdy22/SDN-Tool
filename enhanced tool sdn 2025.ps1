@@ -325,6 +325,7 @@ $Window = [Windows.Markup.XamlReader]::Load($reader)
             $checkbox_AlarmID.IsChecked = $false
             $checkbox_INI_PARAM.IsChecked = $false
             $checkbox_TestLogin.IsChecked =$false
+            
         }
     })
 
