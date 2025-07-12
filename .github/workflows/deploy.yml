@@ -1,0 +1,30 @@
+# .github/workflows/deploy.yml
+name: Local Docker Deployment
+
+on:
+  push:
+    paths:
+      - '**.ps1'
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Show PowerShell output
+      run: pwsh Hi_Script.ps1
+
+    - name: Pull and run Docker container
+      run: |
+        echo 'FROM python:3.10-slim' > Dockerfile
+        echo 'CMD echo "HI ZAYED THIS IS AFTER COMMIT"' >> Dockerfile
+        docker build -t zayed-image .
+        docker run --rm zayed-image
+
+
+
+
+
