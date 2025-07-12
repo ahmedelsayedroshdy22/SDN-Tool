@@ -18,10 +18,9 @@ jobs:
 
     - name: Create Dockerfile
       run: |
-        echo 'FROM python:3.10-slim' > Dockerfile
-        echo 'COPY script.py /app/script.py' >> Dockerfile
-        echo 'WORKDIR /app' >> Dockerfile
-        echo 'CMD ["python", "script.py"]' >> Dockerfile
+        FROM python:3.10-slim
+        COPY script.py /app/script.py
+        CMD ["python", "/app/script.py"]   
 
     - name: Create script.py
       run: |
