@@ -1,0 +1,36 @@
+name: Docker Add 10
+
+on:
+  workflow_dispatch:
+    inputs:
+      user_number:
+        description: 'Enter a number'
+        required: true
+        default: '5'
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Create Dockerfile
+      run: |
+        echo 'FROM python:3.10-slim' > Dockerfile
+        echo 'COPY script.py /app/script.py' >> Dockerfile
+        echo 'WORKDIR /app' >> Dockerfile
+        echo 'CMD ["python", "script.py"]' >> Dockerfile
+
+    - name: Create script.py
+      run: |
+        echo "import sys" > script.py
+        echo "n = int(sys.argv[1])" >> script.py
+        echo "print('Result:', n + 10)" >> script.py
+
+    - name: Build Docker image
+      run: docker build -t zayed-image .
+
+    - name: Run Docker container with input
+      run: docker run --rm zayed-image ${{ github.event.inputs.user_number }}
