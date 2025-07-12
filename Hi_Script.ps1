@@ -1,1 +1,1 @@
-﻿echo "Hello From my very first PS scriptttttt yarab tshtghl2"
+﻿echo "Hello Ba2aaaaaaa!!!"
