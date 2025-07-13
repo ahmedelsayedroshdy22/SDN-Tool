@@ -1,35 +1,24 @@
-name: Docker Add 10
+name: Fetch License on Push
 
 on:
-  workflow_dispatch:
-    inputs:
-      user_number:
-        description: 'Enter a number'
-        required: true
-        default: '5'
+  push:
+    branches:
+      - main
 
 jobs:
-  deploy:
-    runs-on: self-hosted
-
+  get-license:
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Call API and save license
+        run: |
+          cred="Admin:Admin"
+          encodedCred=$(echo -n "$cred" | base64)
+          curl -s -X GET "http://192.168.1.10/api/v1/license" \
+            -H "Authorization: Basic $encodedCred" \
+            -o license.txt
 
-    - name: Create Dockerfile
-      run: |
-        FROM python:3.10-slim
-        COPY script.py /app/script.py
-        CMD ["python", "/app/script.py"]   
-
-    - name: Create script.py
-      run: |
-        echo "import sys" > script.py
-        echo "n = int(sys.argv[1])" >> script.py
-        echo "print('Result:', n + 10)" >> script.py
-
-    - name: Build Docker image
-      run: docker build -t zayed-image .
-
-    - name: Run Docker container with input
-      run: docker run --rm zayed-image ${{ github.event.inputs.user_number }}
+      - name: Upload license as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: license
+          path: license.txt
