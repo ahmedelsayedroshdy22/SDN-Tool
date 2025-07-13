@@ -8,14 +8,17 @@ on:
 jobs:
   get-license:
     runs-on: self-hosted
+
     steps:
       - name: Call API and save license
         run: |
           cred="Admin:Admin"
           encodedCred=$(echo -n "$cred" | base64)
+
+          # Fetch license and save it as license.txt
           curl -s -X GET "http://192.168.1.10:80/api/v1/license" \
             -H "Authorization: Basic $encodedCred" \
-            -o license.txt4
+            -o license.txt
 
       - name: Upload license as artifact
         uses: actions/upload-artifact@v4
