@@ -13,7 +13,7 @@ jobs:
         run: |
           cred="Admin:Admin"
           encodedCred=$(echo -n "$cred" | base64)
-          curl -s -X GET "http://192.168.1.10/api/v1/license" \
+          curl -s -X GET "http://192.168.1.10:80/api/v1/license" \
             -H "Authorization: Basic $encodedCred" \
             -o license.txt
 
