@@ -16,7 +16,7 @@ jobs:
           encodedCred=$(echo -n "$cred" | base64)
 
           # Fetch license and save it as license.txt
-          curl -s -X GET "http://192.168.1.10:80/api/v1/license" \
+          curl -s -X GET "http://192.168.128.128:80/api/v1/license" \
             -H "Authorization: Basic $encodedCred" \
             -o license.txt
 
