@@ -17,7 +17,7 @@ pipeline {
                 '''
             }
         }
-        stage('Get the Configuration Package from the SBC'){
+        stage('Get the Configuration Package from the SBC1'){
 
             steps {
                 sh '''
