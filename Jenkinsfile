@@ -10,7 +10,7 @@ pipeline {
 
         stage('Run a Command') {
             steps {
-                sh 'echo "This is running inside the Jenkins container on Linux"'
+                sh 'echo "This is running inside the Jenkins container on Linux and from the GITHUB GROOOVY NOT JENKIN"'
             }
         }
     }
