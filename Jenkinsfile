@@ -13,7 +13,7 @@ pipeline {
                     curl -s -X GET \
                         -H "Authorization: Basic $cred_encoded" \
                         http://192.168.128.128/api/v1/files/ini \
-                        -o INI2.txt
+                        -o INI3.txt
                 '''
             }
         }
@@ -38,7 +38,7 @@ pipeline {
 
         stage('Archive File') {
             steps {
-                archiveArtifacts artifacts: 'INI2.txt', onlyIfSuccessful: true
+                archiveArtifacts artifacts: 'INI3.txt', onlyIfSuccessful: true
                 archiveArtifacts artifacts: 'CFG-PCKG.7z', onlyIfSuccessful: true
             
             }
