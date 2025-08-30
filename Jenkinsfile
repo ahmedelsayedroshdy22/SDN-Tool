@@ -12,7 +12,7 @@ pipeline {
                     # Call API and save to INI.txt
                     curl -s -X GET \
                         -H "Authorization: Basic $cred_encoded" \
-                        http://192.168.128.128/api/v1/files/ini \
+                        http://192.168.128.144/api/v1/files/ini \
                         -o INI3.txt
                 '''
             }
@@ -28,7 +28,7 @@ pipeline {
                     # Call API and save CFG PCKG
                     curl -s -X GET \
                         -H "Authorization: Basic $cred_encoded" \
-                        http://192.168.128.128/api/v1/files/configurationPackage.7z \
+                        http://192.168.128.144/api/v1/files/configurationPackage.7z \
                         -o CFG-PCKG.7z
                 '''
 
