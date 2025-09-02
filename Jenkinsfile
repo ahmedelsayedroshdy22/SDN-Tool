@@ -12,7 +12,7 @@ pipeline {
                     # Call API and save to INI.txt
                     curl -s -X GET \
                         -H "Authorization: Basic $cred_encoded" \
-                        http://192.168.128.14/api/v1/files/ini \
+                        http://192.168.128.144/api/v1/files/ini \
                         -o INI3.txt
                 '''
             }
