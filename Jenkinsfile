@@ -13,7 +13,7 @@ pipeline {
                             # Call API and save response to file
                             curl -s -o INI3.txt -w "%{http_code}" \
                               -H "Authorization: Basic $cred_encoded" \
-                              http://192.168.128.144/api/v1/files/in
+                              http://192.168.128.144/api/v1/files/ini
                         ''',
                         returnStdout: true
                     ).trim()
