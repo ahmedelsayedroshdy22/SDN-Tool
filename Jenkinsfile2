@@ -1,1 +1,52 @@
-hhh
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = 'sdn_tool_image'
+        CONTAINER_NAME = 'SDN_TOOL'
+        APP_PORT = '8070'
+    }
+
+    stages {
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    echo '🐳 Building new Docker image...'
+                    def buildTag = "${env.BUILD_NUMBER}"
+                    sh """
+                    docker build -t ${IMAGE_NAME}:${buildTag} -t ${IMAGE_NAME}:latest .
+                    """
+                }
+            }
+        }
+
+        stage('Stop Old Container') {
+            steps {
+                echo '🛑 Stopping old container (if running)...'
+                sh "docker stop ${CONTAINER_NAME} || true"
+                sh "docker rm ${CONTAINER_NAME} || true"
+            }
+        }
+
+        stage('Run New Container') {
+            steps {
+                echo '🚀 Running new container...'
+                sh """
+                docker run -d \
+                  -p ${APP_PORT}:${APP_PORT} \
+                  --name ${CONTAINER_NAME} \
+                  ${IMAGE_NAME}:latest
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Deployment successful! Your Flask app is live.'
+        }
+        failure {
+            echo '❌ Build failed. Check Jenkins logs for details.'
+        }
+    }
+}
