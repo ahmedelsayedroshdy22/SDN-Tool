@@ -14,7 +14,7 @@ pipeline {
                     echo '🐳 Building new Docker image...'
                     def buildTag = "${env.BUILD_NUMBER}"
                     sh """
-                    docker build -t ${IMAGE_NAME}:${buildTag} -t ${IMAGE_NAME}:latest .
+                  sudo docker build -t ${IMAGE_NAME}:${buildTag} -t ${IMAGE_NAME}:latest .
                     """
                 }
             }
@@ -23,8 +23,8 @@ pipeline {
         stage('Stop Old Container') {
             steps {
                 echo '🛑 Stopping old container (if running)...'
-                sh "docker stop ${CONTAINER_NAME} || true"
-                sh "docker rm ${CONTAINER_NAME} || true"
+                sh "sudo docker stop ${CONTAINER_NAME} || true"
+                sh "sudo docker rm ${CONTAINER_NAME} || true"
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo '🚀 Running new container...'
                 sh """
-                docker run -d \
+                sudo docker run -d \
                   -p ${APP_PORT}:${APP_PORT} \
                   --name ${CONTAINER_NAME} \
                   ${IMAGE_NAME}:latest
