@@ -197,7 +197,7 @@ HTML_PAGE = """
 def home():
     message = None
     if request.method == "POST":
-        message = "k e e p      g o i n g , p u s h   faster  .."
+        message = "k e e p      g o i n g , p u s h   m o r e  .."
     return render_template_string(HTML_PAGE, message=message)
 
 if __name__ == "__main__":
