@@ -1,22 +1,19 @@
-from flask import Flask, render_template_string, request
+from flask import Flask, render_template_string, request, send_file
 import base64
 import requests
+import io
 
 app = Flask(__name__)
 
-HTML_PAGE = """ 
-<!-- ... Keep your existing HTML ... -->
-
+HTML_PAGE = """
+<!-- your existing HTML -->
 <form method="post">
     <button type="submit" name="action" value="click_me">Click Me</button>
     <button type="submit" name="action" value="get_config">Get Configuration</button>
 </form>
-
 {% if message %}
 <h2>{{ message }}</h2>
 {% endif %}
-
-<!-- ... rest of HTML ... -->
 """
 
 @app.route("/", methods=["GET", "POST"])
@@ -30,21 +27,23 @@ def home():
             # API credentials
             cred = "Admin:Admin"
             cred_encoded = base64.b64encode(cred.encode()).decode()
-
-            # Make API call
             url = "http://192.168.128.144/api/v1/files/ini"
             headers = {"Authorization": f"Basic {cred_encoded}"}
-            
+
             try:
                 response = requests.get(url, headers=headers, timeout=5)
-                status_code = response.status_code
-
-                if status_code == 200:
-                    with open("INI3.txt", "wb") as f:
-                        f.write(response.content)
-                    message = "Configuration downloaded successfully!"
+                if response.status_code == 200:
+                    # Create a BytesIO object to send as a file
+                    file_stream = io.BytesIO(response.content)
+                    file_stream.seek(0)
+                    return send_file(
+                        file_stream,
+                        as_attachment=True,
+                        download_name="INI3.txt",
+                        mimetype="text/plain"
+                    )
                 else:
-                    message = f"Failed to fetch configuration (HTTP {status_code})"
+                    message = f"Failed to fetch configuration (HTTP {response.status_code})"
             except Exception as e:
                 message = f"Error: {str(e)}"
 
