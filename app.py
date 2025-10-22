@@ -67,7 +67,7 @@ HTML_PAGE = """
                 <button type="submit" name="action" value="restart" class="btn btn-warning">Restart</button>
                 <button type="submit" name="action" value="shutdown" class="btn btn-danger">Shutdown</button>
                 <button type="submit" name="action" value="status" class="btn btn-info">Check Status</button>
-                <button type="submit" name="action" value="logs" class="btn btn-success">owidaa&amera&sawy</button>
+                <button type="submit" name="action" value="logs" class="btn btn-success">Devops Presenting</button>
             </div>
         </form>
 
