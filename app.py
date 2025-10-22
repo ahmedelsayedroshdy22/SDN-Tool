@@ -31,7 +31,7 @@ HTML_PAGE = """
             border-radius: 1rem;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             padding: 2rem;
-            background: white;
+            background: blue;
         }
 
         h1 {
