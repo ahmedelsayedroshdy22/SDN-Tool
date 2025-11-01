@@ -16,7 +16,7 @@ Add-Type -AssemblyName System.Drawing
      $Global:ipforAPI
      $Global:AlarmID
      $Global:Test
-     $Global:currentVersion = "1.0"
+     $Global:currentVersion = "4.0"
      
 ############################################################################################
 
@@ -1853,6 +1853,7 @@ $form.Controls.Add($Haleon_VPN_Button)
 
 # Show the first form
 $form.ShowDialog() | Out-Null
+
 
 
 
