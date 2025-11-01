@@ -1023,13 +1023,7 @@ $form.ClientSize = New-Object System.Drawing.Size(1070, 635)
 $form.StartPosition = 'CenterScreen'
 $form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#738196")
 $form.Font = New-Object System.Drawing.Font("Segoe UI", 9, [System.Drawing.FontStyle]::Regular)
-$form.FormBorderStyle = 'FixedDialog'
-$form.MaximizeBox = $false
-$form.MinimizeBox = $true
 $form.AutoScaleMode = 'Font'
-$form.AutoSize = $false
-$form.MinimumSize = New-Object System.Drawing.Size(1070, 635)
-$form.MaximumSize = New-Object System.Drawing.Size(1070, 635)
 
 
 # Create the dropdown menu (ComboBox) for customers
@@ -1853,6 +1847,7 @@ $form.Controls.Add($Haleon_VPN_Button)
 
 # Show the first form
 $form.ShowDialog() | Out-Null
+
 
 
 
