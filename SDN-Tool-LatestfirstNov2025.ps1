@@ -1,4 +1,4 @@
-﻿cd "C:\Util\CCD"
+cd "C:\Util\CCD"
 ###################################################################################################################################################################################################################################################################################
 # Load Windows Forms and drawing assemblies
 Add-Type -AssemblyName System.Windows.Forms
@@ -16,7 +16,7 @@ Add-Type -AssemblyName System.Drawing
      $Global:ipforAPI
      $Global:AlarmID
      $Global:Test
-     $Global:currentVersion = "4.0"
+     $Global:currentVersion = "4.1"
      
 ############################################################################################
 
@@ -692,7 +692,7 @@ $dataGrid.Add_MouseDoubleClick({
             $row = $cell.DataContext
             $adminIP = $row."Admin IP address"
             if ($adminIP) {
-                Start-Process "msedge.exe" "https://$adminIP"
+                Start-Process "firefox.exe" "https://$adminIP"
             }
         }
     }
@@ -886,13 +886,13 @@ $dataGrid.Add_MouseDoubleClick({
             if ($customerName -eq "singapore airlines ltd.") {
                 $hostIP = $row."Host IP address"
                 if ($hostIP) {
-                    Start-Process "msedge.exe" "https://$hostIP"
+                    Start-Process "firefox.exe" "https://$hostIP"
                 }
             }
             else {
                 $adminIP = $row."Admin IP address"
                 if ($adminIP) {
-                    Start-Process "msedge.exe" "https://$adminIP"
+                    Start-Process "firefox.exe" "https://$adminIP"
                 }
             }
         }
@@ -910,7 +910,7 @@ $dataGrid.Add_KeyDown({
         foreach ($row in $selectedRows) {
             $adminIP = $row."Admin IP address"
             if ($adminIP) {
-                Start-Process "msedge.exe" "https://$adminIP"
+                Start-Process "firefox.exe" "https://$adminIP"
             }
         }
     }
@@ -1024,6 +1024,8 @@ $form.StartPosition = 'CenterScreen'
 $form.BackColor = [System.Drawing.ColorTranslator]::FromHtml("#738196")
 $form.Font = New-Object System.Drawing.Font("Segoe UI", 9, [System.Drawing.FontStyle]::Regular)
 $form.AutoScaleMode = 'Font'
+
+
 
 
 # Create the dropdown menu (ComboBox) for customers
@@ -1204,7 +1206,7 @@ $Label_SDNVPN_Status.ForeColor = [System.Drawing.Color]::Black
 
     $OVOC_Button.Add_Click({
  
- Start-Process "msedge.exe" "https://10.217.12.20/web-ui-ovoc/login" 
+ Start-Process "firefox.exe" "https://10.217.12.20/web-ui-ovoc/login" 
     
     })
 
@@ -1291,7 +1293,7 @@ $credentials = Get-Content $credentialsFile
 $username, $password = $credentials -split ","
 
 # Start plink with the dynamic username
-Start-Process powershell.exe -ArgumentList '-NoExit', "-Command", "plink.exe -ssh $username@10.57.164.4 -pw '$password' -D 8080"
+Start-Process powershell.exe -ArgumentList '-NoExit', "-Command", "plink.exe -ssh $username@10.57.164.4 -pw '$password' -D 2906"
     
     })
     
@@ -1349,7 +1351,7 @@ $username, $password = $credentials -split ","
     $GINI_Button.BackColor='white'
 
     $GINI_Button.Add_Click({
- Start-Process "msedge.exe" "https://gini.sso.infra.ftgroup/xvoi/dyn/run?g1=eyJybSI6Ik1haW5NZW51In0"
+ Start-Process "firefox.exe" "https://gini.sso.infra.ftgroup/xvoi/dyn/run?g1=eyJybSI6Ik1haW5NZW51In0"
     
     })
 
@@ -1362,7 +1364,7 @@ $username, $password = $credentials -split ","
     $NewDrop_Button.BackColor='white'
 
     $NewDrop_Button.Add_Click({
- Start-Process "msedge.exe" "https://dropportal-3p-ocn.si.fr.intraorange/accounts/login/?next=/"
+ Start-Process "firefox.exe" "https://dropportal-3p-ocn.si.fr.intraorange/accounts/login/?next=/"
     
     })
 
@@ -1388,7 +1390,7 @@ $username, $password = $credentials -split ","
     $CustomerMigration_Button.BackColor='white'
 
     $CustomerMigration_Button.Add_Click({
- Start-Process "msedge.exe" "https://orange0.sharepoint.com/:x:/r/sites/B2GCSPortal/_layouts/15/doc2.aspx?sourcedoc=%7B6CC1D5CD-677D-4AEE-BC1A-64997CAFB047%7D&file=listing_customers_PF.xlsx&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&action=default&mobileredirect=true&isSPOFile=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDA3MTEyODgyNSIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D"
+ Start-Process "firefox.exe" "https://orange0.sharepoint.com/:x:/r/sites/B2GCSPortal/_layouts/15/doc2.aspx?sourcedoc=%7B6CC1D5CD-677D-4AEE-BC1A-64997CAFB047%7D&file=listing_customers_PF.xlsx&wdOrigin=TEAMS-MAGLEV.p2p_ns.rwc&action=default&mobileredirect=true&isSPOFile=1&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNDA3MTEyODgyNSIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D"
     
     })
 
@@ -1517,7 +1519,7 @@ $dataGrid.Add_MouseDoubleClick({
             $row = $cell.DataContext
             $adminIP = $row."Admin IP address"
             if ($adminIP) {
-                Start-Process "msedge.exe" "https://$adminIP"
+                Start-Process "firefox.exe" "https://$adminIP"
             }
         }
     }
@@ -1560,7 +1562,7 @@ Add-Type -AssemblyName PresentationFramework
 
       $Ipcfm_Button.Add_Click({
 
- Start-Process "msedge.exe" "https://vmnfsapi2411.rp-ocn.apps.ocn.infra.ftgroup/home"
+ Start-Process "firefox.exe" "https://vmnfsapi2411.rp-ocn.apps.ocn.infra.ftgroup/home"
     
     })
 
@@ -1847,8 +1849,6 @@ $form.Controls.Add($Haleon_VPN_Button)
 
 # Show the first form
 $form.ShowDialog() | Out-Null
-
-
 
 
 
