@@ -16,7 +16,7 @@ Add-Type -AssemblyName System.Drawing
      $Global:ipforAPI
      $Global:AlarmID
      $Global:Test
-     $Global:currentVersion = "4.1"
+     $Global:currentVersion = "4.2"
      
 ############################################################################################
 
@@ -34,7 +34,7 @@ Add-Type -AssemblyName PresentationFramework
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SBC Management Console" 
-        Height="650" 
+        Height="680" 
         Width="1200" 
         WindowStartupLocation="CenterScreen"
         Background="#F8F9FA"
@@ -180,7 +180,7 @@ Add-Type -AssemblyName PresentationFramework
                           Margin="0,0,0,15"/>
                 
                 <!-- Test Login Credentials -->
-                <Grid Margin="0,8">
+                <Grid Margin="0,6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="15"/>
@@ -191,52 +191,52 @@ Add-Type -AssemblyName PresentationFramework
                         <Label Content="Username" Style="{StaticResource ModernLabel}"/>
                         <TextBox x:Name="TestLoginName_TextField" 
                                 Style="{StaticResource ModernTextBox}"
-                                Height="38"/>
+                                Height="36"/>
                     </StackPanel>
                     
                     <StackPanel Grid.Column="2">
                         <Label Content="Password" Style="{StaticResource ModernLabel}"/>
                         <TextBox x:Name="TestLoginPass_TextField" 
                                 Style="{StaticResource ModernTextBox}"
-                                Height="38"/>
+                                Height="36"/>
                     </StackPanel>
                 </Grid>
                 
                 <CheckBox x:Name="checkbox_TestLogin" 
                          Content="Use Test Login Credentials" 
                          Style="{StaticResource ModernCheckBox}"
-                         Margin="0,10,0,0"/>
+                         Margin="0,8,0,0"/>
 
-                <Separator Margin="0,15" Background="#E5E7EB" Height="1.5"/>
+                <Separator Margin="0,12" Background="#E5E7EB" Height="1.5"/>
 
                 <!-- INI Parameter -->
-                <StackPanel Margin="0,8">
+                <StackPanel Margin="0,6">
                     <Label Content="INI Parameter" Style="{StaticResource ModernLabel}"/>
                     <TextBox x:Name="INI_Parameter_TextField" 
                             Style="{StaticResource ModernTextBox}"
-                            Height="38"/>
+                            Height="36"/>
                     <CheckBox x:Name="checkbox_INI_PARAM" 
                              Content="Apply INI Parameter" 
                              Style="{StaticResource ModernCheckBox}"
-                             Margin="0,10,0,0"/>
+                             Margin="0,8,0,0"/>
                 </StackPanel>
 
-                <Separator Margin="0,15" Background="#E5E7EB" Height="1.5"/>
+                <Separator Margin="0,12" Background="#E5E7EB" Height="1.5"/>
 
                 <!-- SBC Selection -->
                 <Button x:Name="button" 
                         Content="Select SBC" 
                         Style="{StaticResource ModernButton}"
                         Background="#DC2626"
-                        Height="42"
-                        Margin="0,8"/>
+                        Height="40"
+                        Margin="0,6"/>
                 
                 <Border Background="#F9FAFB" 
                         BorderBrush="#D1D5DB" 
                         BorderThickness="1.5" 
                         CornerRadius="6" 
                         Padding="12"
-                        Margin="0,10,0,0">
+                        Margin="0,8,0,0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Selected:" 
                                   FontFamily="Segoe UI" 
@@ -259,18 +259,27 @@ Add-Type -AssemblyName PresentationFramework
                         Content="Global Search" 
                         Style="{StaticResource ModernButton}"
                         Background="#0891B2"
-                        Height="44"
+                        Height="40"
                         FontSize="13"
-                        Margin="0,18,0,0"/>
+                        Margin="0,14,0,0"/>
 
                 <!-- Execute Button -->
                 <Button x:Name="button_Go" 
                         Content="Execute Operations" 
                         Style="{StaticResource ModernButton}"
                         Background="#059669"
-                        Height="44"
+                        Height="40"
                         FontSize="13"
-                        Margin="0,10,0,0"/>
+                        Margin="0,8,0,0"/>
+
+                <!-- New Button Under Execute -->
+                <Button x:Name="button_SipTrace" 
+                        Content="Start SIP Trace" 
+                        Style="{StaticResource ModernButton}"
+                        Background="#EA580C"
+                        Height="40"
+                        FontSize="13"
+                        Margin="0,8,0,0"/>
                 
                 <TextBlock x:Name="LoadingMessage" 
                           Text="Processing..." 
@@ -278,7 +287,7 @@ Add-Type -AssemblyName PresentationFramework
                           FontSize="11"
                           Foreground="#0891B2"
                           HorizontalAlignment="Center"
-                          Margin="0,12,0,0"
+                          Margin="0,10,0,0"
                           Visibility="Hidden"/>
             </StackPanel>
         </Border>
@@ -304,14 +313,17 @@ Add-Type -AssemblyName PresentationFramework
                          Content="Get Alarm ID Details" 
                          Style="{StaticResource ModernCheckBox}"/>
                 
-                <StackPanel Margin="25,6,0,6">
+                <StackPanel Margin="25,4,0,4">
                     <Label Content="Alarm ID:" 
                           Style="{StaticResource ModernLabel}"
-                          FontSize="11"/>
+                          FontSize="11"
+                          Padding="0,0,0,3"/>
                     <TextBox x:Name="AlarmID_TextField" 
                             Style="{StaticResource ModernTextBox}"
-                            Width="90"
-                            Height="28"
+                            Width="120"
+                            Height="32"
+                            FontSize="11"
+                            Padding="8,6"
                             HorizontalAlignment="Left"/>
                 </StackPanel>
                 
@@ -367,7 +379,7 @@ $Window = [Windows.Markup.XamlReader]::Load($reader)
   $HostIP_GlobalSearch=$Window.FindName("HostIP_GlobalSearch")
   $button_RefreshData=$Window.FindName("button_RefreshData")
   $button_CheckStatus=$Window.FindName("button_CheckStatus")
-  
+  $button_SipTrace=$Window.FindName("button_SipTrace")
   
 
 
@@ -944,6 +956,105 @@ Add-Type -AssemblyName PresentationFramework
     ###################################################################################### INI COMPARISON ####################################
     ##########################################################################################################################################
 
+
+
+
+
+    $button_SipTrace.Add_Click({
+    
+    $x= Import-Csv .\Gw_AdminIP.csv
+
+ 
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
+
+# Create form
+$form = New-Object System.Windows.Forms.Form
+$form.Text = 'Select Credentials'
+$form.Size = New-Object System.Drawing.Size(350, 180)
+$form.StartPosition = 'CenterScreen'
+$form.FormBorderStyle = 'FixedDialog'
+$form.MaximizeBox = $false
+
+# Create label
+$label = New-Object System.Windows.Forms.Label
+$label.Location = New-Object System.Drawing.Point(20, 20)
+$label.Size = New-Object System.Drawing.Size(300, 20)
+$label.Text = 'Choose credentials to use:'
+$label.Font = New-Object System.Drawing.Font("Segoe UI", 10)
+$form.Controls.Add($label)
+
+# Radio button 1 - Default password
+$radio1 = New-Object System.Windows.Forms.RadioButton
+$radio1.Location = New-Object System.Drawing.Point(30, 50)
+$radio1.Size = New-Object System.Drawing.Size(280, 25)
+$radio1.Text = 'Use Default Puso'
+$radio1.Checked = $true
+$radio1.Font = New-Object System.Drawing.Font("Segoe UI", 9)
+$form.Controls.Add($radio1)
+
+# Radio button 2 - Credentials file
+$radio2 = New-Object System.Windows.Forms.RadioButton
+$radio2.Location = New-Object System.Drawing.Point(30, 80)
+$radio2.Size = New-Object System.Drawing.Size(280, 25)
+$radio2.Text = 'Use Your Nuar Access'
+$radio2.Font = New-Object System.Drawing.Font("Segoe UI", 9)
+$form.Controls.Add($radio2)
+
+# OK button
+$okButton = New-Object System.Windows.Forms.Button
+$okButton.Location = New-Object System.Drawing.Point(180, 115)
+$okButton.Size = New-Object System.Drawing.Size(75, 25)
+$okButton.Text = 'OK'
+$okButton.DialogResult = [System.Windows.Forms.DialogResult]::OK
+$okButton.Font = New-Object System.Drawing.Font("Segoe UI", 9)
+$form.AcceptButton = $okButton
+$form.Controls.Add($okButton)
+
+# Cancel button
+$cancelButton = New-Object System.Windows.Forms.Button
+$cancelButton.Location = New-Object System.Drawing.Point(260, 115)
+$cancelButton.Size = New-Object System.Drawing.Size(75, 25)
+$cancelButton.Text = 'Cancel'
+$cancelButton.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
+$cancelButton.Font = New-Object System.Drawing.Font("Segoe UI", 9)
+$form.CancelButton = $cancelButton
+$form.Controls.Add($cancelButton)
+
+# Show dialog
+$result = $form.ShowDialog()
+
+if ($result -eq [System.Windows.Forms.DialogResult]::OK) {
+    if ($radio1.Checked) {
+        # Use default credentials
+        $username = 'puso7259'
+        $password = 'Rw49iuMzJm'
+        Write-Host "Using default credentials: $username" -ForegroundColor Green
+    }
+    elseif ($radio2.Checked) {
+        # Read from credentials file
+        $credentialsFile = "C:\Util\CCD\Credentials.txt"
+        
+        if (Test-Path $credentialsFile) {
+            $credentials = Get-Content $credentialsFile
+            $username, $password = $credentials -split ","
+            Write-Host "Using credentials from file: $username" -ForegroundColor Green
+        }
+        else {
+            Write-Host "Credentials file not found at: $credentialsFile" -ForegroundColor Red
+            exit
+        }
+    }
+    
+    # Import CSV and run syslogViewer
+    $x = Import-Csv .\Gw_AdminIP.csv
+    & "C:\Program Files\syslogViewer\syslogViewer.exe" --connect "$($x.'Admin IP address')" "$username" "$password"
+}
+else {
+    Write-Host "Operation cancelled." -ForegroundColor Yellow
+}
+
+    })
 
 
     $button_Compare_INI.Add_Click({
