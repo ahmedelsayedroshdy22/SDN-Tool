@@ -16,7 +16,7 @@ Add-Type -AssemblyName System.Drawing
      $Global:ipforAPI
      $Global:AlarmID
      $Global:Test
-     $Global:currentVersion = "4.2"
+     $Global:currentVersion = "4.3"
      
 ############################################################################################
 
@@ -1404,7 +1404,7 @@ $credentials = Get-Content $credentialsFile
 $username, $password = $credentials -split ","
 
 # Start plink with the dynamic username
-Start-Process powershell.exe -ArgumentList '-NoExit', "-Command", "plink.exe -ssh $username@10.57.164.4 -pw '$password' -D 2906"
+Start-Process powershell.exe -ArgumentList '-NoExit', "-Command", "plink.exe -ssh $username@10.57.148.4 -pw '$password' -D 2906"
     
     })
     
@@ -1960,7 +1960,6 @@ $form.Controls.Add($Haleon_VPN_Button)
 
 # Show the first form
 $form.ShowDialog() | Out-Null
-
 
 
 
